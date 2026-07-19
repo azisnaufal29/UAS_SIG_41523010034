@@ -1,0 +1,165 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "Nama_Jalan": "Jl. Sudirman",
+        "Tipe_Jalan": "Arteri"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            106.79,
+            -6.25
+          ],
+          [
+            106.86,
+            -6.25
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Nama_Jalan": "Jl. Rasuna Said",
+        "Tipe_Jalan": "Arteri"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            106.79,
+            -6.235
+          ],
+          [
+            106.86,
+            -6.235
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Nama_Jalan": "Jl. Gatot Subroto",
+        "Tipe_Jalan": "Arteri"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            106.79,
+            -6.22
+          ],
+          [
+            106.86,
+            -6.22
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Nama_Jalan": "Jl. Prof. Dr. Satrio",
+        "Tipe_Jalan": "Kolektor"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            106.79,
+            -6.205
+          ],
+          [
+            106.86,
+            -6.205
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Nama_Jalan": "Jl. Casablanca",
+        "Tipe_Jalan": "Kolektor"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            106.81,
+            -6.27
+          ],
+          [
+            106.81,
+            -6.19
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Nama_Jalan": "Jl. Tebet Raya",
+        "Tipe_Jalan": "Kolektor"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            106.825,
+            -6.27
+          ],
+          [
+            106.825,
+            -6.19
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Nama_Jalan": "Jl. Mampang Prapatan",
+        "Tipe_Jalan": "Kolektor"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            106.84,
+            -6.27
+          ],
+          [
+            106.84,
+            -6.19
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Nama_Jalan": "Jl. Pasar Minggu",
+        "Tipe_Jalan": "Kolektor"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            106.855,
+            -6.27
+          ],
+          [
+            106.855,
+            -6.19
+          ]
+        ]
+      }
+    }
+  ]
+}
