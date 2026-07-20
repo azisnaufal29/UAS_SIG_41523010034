@@ -55,7 +55,7 @@ st.markdown('<div class="sub-title">UAS Sistem Informasi Geografis (SIG) - Progr
 @st.cache_data
 def load_spatial_data():
     # Load raw GeoJSON layers
-    gdf_rw = gpd.read_file("Batas_RW_Jakarta.geojson")
+    gdf_rw = gpd.read_file("Batas_RW_Predictions.geojson")
     gdf_tmu = gpd.read_file("Lokasi_TMU.geojson")
     gdf_rptra = gpd.read_file("Lokasi_RPTRA.geojson")
     gdf_lahan = gpd.read_file("Lahan_Kosong_Pemkot.geojson")
@@ -121,6 +121,11 @@ elif selected_tmu_status == "Kritis (<10%)":
 st.sidebar.markdown("---")
 st.sidebar.subheader("🎨 Legenda Kartografi")
 st.sidebar.markdown("""
+**Prioritas RPTRA Baru (Poligon RW):**
+*   🟢 **Sangat Prioritas** (Ada Lahan, Kepadatan Anak Tinggi, Aman)
+*   🟡 **Cukup Prioritas** (Ada Lahan, Kepadatan Anak Sedang, Aman)
+*   🔴 **Tidak Prioritas** (Tidak ada Lahan, atau dekat Makam <500m)
+
 **Kapasitas TMU (Poligon/Titik):**
 *   🟢 **Tersedia** (> 30% kapasitas tersisa)
 *   🟡 **Sedang** (10-30% kapasitas tersisa)
@@ -174,21 +179,37 @@ map_center = [-6.235, 106.83]
 m = folium.Map(location=map_center, zoom_start=13, tiles="CartoDB positron", control_scale=True)
 
 # 1. Base Layer: Batas RW / Kelurahan (as Checkbox / Layer control)
-fg_rw = folium.FeatureGroup(name="Batas RW Wilayah", show=True)
+fg_rw = folium.FeatureGroup(name="Prioritas Pembangunan RPTRA (Batas RW)", show=True)
 for _, row in filtered_rw.iterrows():
     # Simple polygon drawing
     sim_geo = gpd.GeoSeries(row['geometry']).simplify(tolerance=0.0001)
     geo_j = sim_geo.to_json()
+    
+    # Ambil Prediksi_Prioritas dari row hasil Machine Learning
+    prio = row.get('Prediksi_Prioritas', 0)
+    if prio == 2:
+        fill_color = '#10B981'  # Green (Sangat Prioritas)
+        fill_opacity = 0.4
+        label_prio = "Sangat Prioritas"
+    elif prio == 1:
+        fill_color = '#F59E0B'  # Yellow (Cukup Prioritas)
+        fill_opacity = 0.3
+        label_prio = "Cukup Prioritas"
+    else:
+        fill_color = '#EF4444'  # Red (Tidak Prioritas)
+        fill_opacity = 0.1
+        label_prio = "Tidak Prioritas"
+        
     geo_j = folium.GeoJson(
         geo_j,
-        style_function=lambda x: {
-            'fillColor': '#E5E7EB',
+        style_function=lambda x, fc=fill_color, fo=fill_opacity: {
+            'fillColor': fc,
             'color': '#9CA3AF',
             'weight': 1,
-            'fillOpacity': 0.2
+            'fillOpacity': fo
         }
     )
-    folium.Popup(f"<b>Kecamatan:</b> {row['Kecamatan']}<br><b>RW:</b> {row['Nama_RW']}<br><b>Kepadatan Anak:</b> {row['Kpdn_Anak']} anak/km²").add_to(geo_j)
+    folium.Popup(f"<b>Kecamatan:</b> {row['Kecamatan']}<br><b>RW:</b> {row['Nama_RW']}<br><b>Kepadatan Anak:</b> {row['Kpdn_Anak']} anak/km²<br><b>Prediksi Prioritas:</b> <b style='color:{fill_color};'>{label_prio}</b>").add_to(geo_j)
     geo_j.add_to(fg_rw)
 fg_rw.add_to(m)
 
